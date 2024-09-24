@@ -53,7 +53,7 @@ class JsonHandler:
         else:
             raise ValueError("Both JSON data structures must be of the same type (both lists or both dictionaries)")
     
-    def read_and_combine(self, html_mapper_file: str, filter: Optional[str]= None) -> None:
+    def read_and_combine(self, html_mapper_file: str, filter: Optional[str]= None, filter_field: Optional[str]= None) -> None:
         """Read and combine the original and new json data"""
         
         if self.is_file_empty(self.json_new) == True:
@@ -71,7 +71,7 @@ class JsonHandler:
         if filter:
             filtered_data = [
                 entry for entry in data
-                if 'file_num' in entry and filter in entry['file_num']
+                if 'file_num' in entry and filter in entry[filter_field]
                 #if 'form_name' in entry and filter.lower() in entry['form_name'].lower()
             ]
             self.write_json_file(self.json_new, filtered_data)
@@ -88,7 +88,10 @@ class JsonHandler:
             os.remove(self.json_new)
             os.rename(self.json_orig, self.json_new)
         else:
-            os.remove(self.json_orig)            
+            try:
+                os.remove(self.json_orig)            
+            except FileNotFoundError:
+                pass
     
     def extract_data_for_html(self, data: List[dict]):
         extracted_data = []
@@ -103,6 +106,7 @@ class JsonHandler:
                 url = url[0] if ticker else None
             if ticker and filed_at and file_num and url:
                 extracted_data.append({
+                    'id': f'{ticker}_{file_num}_{filed_at}.html',
                     'ticker_id': ticker,
                     'ticker': self.ticker_str_to_list(ticker),
                     'url': url,

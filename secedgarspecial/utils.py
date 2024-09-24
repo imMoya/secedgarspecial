@@ -47,7 +47,7 @@ class Date:
         return f"{self.hour:02}:{self.minute:02}:{self.second:02}"
 
 class DataManagement:
-    def __init__(self, folder: str = "data", html_folder: str = "html_files", latest_default_datestr: str = "2024-04-01_00:00:00"):
+    def __init__(self, folder: str = "data", html_folder: str = "html_files", latest_default_datestr: str = "2023-01-01_00:00:00"):
         self.folder = folder
         self.html_folder = html_folder
         self.latest_default_datestr = latest_default_datestr
