@@ -1,11 +1,10 @@
 import os
-import time
+import string
 import json
 from typing import Union, List, Dict, Optional
-from secedgarspecial.utils import DataManagement, Date
 
 class JsonHandler:
-    def __init__(self, json_orig: str, json_new: str):
+    def __init__(self, json_orig: Optional[str] = None, json_new: Optional[str] = None):
         self.json_orig = json_orig
         self.json_new = json_new
    
@@ -97,8 +96,12 @@ class JsonHandler:
         extracted_data = []
         for item in data:
             ticker = item.get('ticker', [])
-            if isinstance(ticker, list):
-                ticker = ticker[0] if ticker else None
+            if isinstance(ticker, str):
+                ticker = ticker.split(",")[0].strip()
+            else:
+                name = item.get('entity_name', [])
+                ticker = name.translate(str.maketrans('', '', string.punctuation)).replace(" ", "").upper()
+            
             filed_at = item.get('filed_at')
             file_num = item.get('file_num')
             url = item.get('filing_document_url', [])

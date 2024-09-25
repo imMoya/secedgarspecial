@@ -49,10 +49,12 @@ class Date:
 class DataManagement:
     def __init__(self, folder: str = "data", html_folder: str = "html_files", latest_default_datestr: str = "2023-01-01_00:00:00"):
         self.folder = folder
-        self.html_folder = html_folder
+        self.html_folder = os.path.join(self.folder, html_folder)
         self.latest_default_datestr = latest_default_datestr
         if not os.path.exists(self.folder):
             os.makedirs(self.folder)
+        if not os.path.exists(self.html_folder):
+            os.makedirs(self.html_folder)
 
     @staticmethod
     def get_date_from_filepath(filepath: str) -> str:
