@@ -15,7 +15,7 @@ if __name__ == "__main__":
     spin_offs_processor = SECDataProcessor(
         folder="db_spinoffs", 
         html_folder="html", 
-        search_term=" ", 
+        search_term="the", 
         filters="991", 
         filter_field="filing_document_url", 
         forms="['10-12B']"
