@@ -6,8 +6,8 @@ if __name__ == "__main__":
         folder="db_oddlots", 
         html_folder="html", 
         search_term="odd lots", 
-        filters="005-", 
-        filter_field="file_num"
+        filters="Tender offer statement", 
+        filter_field="form_name"
     )
     odd_lots_processor.run()
 
