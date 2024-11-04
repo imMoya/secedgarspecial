@@ -6,7 +6,7 @@ if __name__ == "__main__":
         folder="db_oddlots", 
         html_folder="html", 
         search_term="odd lots", 
-        filters="Tender offer statement", 
+        filters=["Tender offer statement"], 
         filter_field="form_name"
     )
     odd_lots_processor.run()
@@ -16,7 +16,7 @@ if __name__ == "__main__":
         folder="db_spinoffs", 
         html_folder="html", 
         search_term="the", 
-        filters="991", 
+        filters=["991", "99-1"], 
         filter_field="filing_document_url", 
         forms="['10-12B']"
     )

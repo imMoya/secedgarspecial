@@ -52,7 +52,7 @@ class JsonHandler:
         else:
             raise ValueError("Both JSON data structures must be of the same type (both lists or both dictionaries)")
     
-    def read_and_combine(self, html_mapper_file: str, filter: Optional[str]= None, filter_field: Optional[str]= None) -> None:
+    def read_and_combine(self, html_mapper_file: str, filter: Optional[str]= None, filter_field: Optional[List[str]]= None) -> None:
         """Read and combine the original and new json data"""
         
         if self.is_file_empty(self.json_new) == True:
@@ -70,7 +70,7 @@ class JsonHandler:
         if filter:
             filtered_data = [
                 entry for entry in data
-                if 'file_num' in entry and filter in entry[filter_field]
+                if 'file_num' in entry and any(f in entry[filter_field] for f in filter)
                 #if 'form_name' in entry and filter.lower() in entry['form_name'].lower()
             ]
             self.write_json_file(self.json_new, filtered_data)
